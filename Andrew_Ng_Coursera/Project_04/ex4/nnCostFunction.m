@@ -62,18 +62,15 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-
-
-
-
-
-
-
-
-
-
-
-
+% -- Part 1 -- %
+% Outer loop:
+for int i = 1:m
+  % K is the total number of possible outputs (10 digits)
+  for int k = 1:10
+    
+  
+  end for
+end for
 
 
 
