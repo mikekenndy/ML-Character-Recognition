@@ -62,15 +62,42 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Append 1 to X
+X = [ones(m, 1) X];
+
 % -- Part 1 -- %
+sum = 0;
+%a2 = zeros(10, 1);
+%a3 = zeros(10, 1);
 % Outer loop:
-for int i = 1:m
-  % K is the total number of possible outputs (10 digits)
-  for int k = 1:10
-    
+for i = 1:m
   
-  end for
-end for
+  % K is the total number of possible outputs (10 digits)
+  for k = 1:10
+    y_temp = zeros(10, 1);
+    y_temp(k) = 1;
+    
+    a1 = X(i,:)';
+    z2 = Theta1 * a1;
+    a2 = sigmoid(z2);
+    a2 = [1; a2];
+    z3 = Theta2 * a2;
+    a3 = sigmoid(z3);
+    hx = a3;
+    
+    Y_1 = (-y_temp(k) * log(hx));
+    Y_0 = (-(1 - y_temp(k)) * log(1 - hx));
+    
+    J += (Y_1 + Y_0);
+  
+  endfor
+endfor
+
+size(a1)
+size(a2)
+size(a3)
+
+J *= (1/m);
 
 
 
