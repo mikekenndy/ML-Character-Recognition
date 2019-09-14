@@ -125,15 +125,19 @@ J += (lambda/(2*m)) * (reg1 + reg2);
 
 % Calculate error of output
 err_out = hx - Y;
-delta_1 = err_hdn' * A1;
 
 % Calculate error to hidden layer
 err_hdn = err_out * Theta2(:,2:end) .* sigmoidGradient(Z2);
+
+delta_1 = err_hdn' * A1;
 delta_2 = err_out' * A2;
 
 % Calculate gradient for Theta 1 and 2
-Theta1_grad = delta_1 ./ m;
-Theta2_grad = delta_2 ./ m;
+Theta1_tmp = [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+Theta2_tmp = [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+
+Theta1_grad = delta_1 ./ m + lambda / m * Theta1_tmp;
+Theta2_grad = delta_2 ./ m + lambda / m * Theta2_tmp;
 
 
 % -------------------------------------------------------------
