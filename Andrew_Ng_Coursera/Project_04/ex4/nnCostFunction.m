@@ -65,8 +65,6 @@ Theta2_grad = zeros(size(Theta2));
 % Append 1 to X
 X = [ones(m, 1) X];
 
-% -- Part 1 -- %
-
 % Create matrix of correct values in vector form
 I = eye(num_labels);
 Y = zeros(m, num_labels);
@@ -85,6 +83,8 @@ Z3 = A2 * Theta2';
 A3 = sigmoid(Z3);
 hx = A3;
 
+
+% ----- Part 1 ----- %
 % Calculate cost
 sum = zeros(m, 1);
 for i = 1:m
@@ -120,10 +120,18 @@ endfor
 
 J += (lambda/(2*m)) * (reg1 + reg2);
 
-% -- Part 2 -- %
+% ----- Part 2 ----- %
 % Backpropagation
 
+err_out = hx - Y;
 
+err_hdn = err_out * Theta2(:,2:end) .* sigmoidGradient(Z2);
+
+delta_1 = err_hdn' * A1;
+delta_2 = err_out' * A2;
+
+Theta1_grad = delta_1 ./ m;
+Theta2_grad = delta_2 ./ m;
 
 
 % -------------------------------------------------------------
