@@ -102,8 +102,26 @@ J *= -(1/m);
 
 % Regularizing cost functions
 
+reg1 = 0;
+for i = 1:size(Theta1, 1)
+  % Start from two to exclude leading ones
+  for j = 2:size(Theta1, 2)
+    reg1 += Theta1(i, j)^2;
+  endfor
+endfor
 
+reg2 = 0;
+for i = 1:size(Theta2, 1)
+  % Start from two to exclude leading ones
+  for j = 2:size(Theta2, 2)
+    reg2 += Theta2(i, j)^2;
+  endfor
+endfor
 
+J += (lambda/(2*m)) * (reg1 + reg2);
+
+% -- Part 2 -- %
+% Backpropagation
 
 
 
