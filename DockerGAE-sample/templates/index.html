@@ -23,11 +23,37 @@
 
   <body>
     <div class="container">
+      
+
       <div class="page-header">
-        <h1>Images  <a href="#" id="btn-predict" class="btn btn-primary my-2">PREDICT</a></h1>
-        
+        <h1>Predict Test</h1>
       </div>
       <div class="row">
+        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+        <div id="image_preview"><img id="previewing" src="{{ url_for('static',filename='no_image.png') }}" /></div>
+        <hr id="line">
+        <div id="selectImage">
+        <h3>Select Your Image (must be 28 x 28)</h3><br/>
+        <input class="btn btn-warning btn-sm" type="file" name="file" id="file" required />
+        <input class="btn btn-warning btn-sm" type="submit" value="Upload" class="submit" />
+        </div>
+        </form>
+      </div>
+
+      <div class="row">
+        <h3>Result</h3>
+      </div>
+      <div class="well">
+        <p></p>
+      </div>
+      <div class="row">
+        <a href="#" id="btn-dir" class="btn btn-primary btn-sm">Check Image Dir</a>
+      </div>
+
+      <!-- <div class="page-header">
+      </div> -->
+      <div class="row">
+        <h3>Or predict images below  <a href="#" id="btn-predict" class="btn btn-primary my-2">Predict Images Below</a></h3>
         <div class="col-sm-4">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -65,16 +91,7 @@
           </div>
         </div><!-- /.col-sm-4 -->
       </div>
-
-
-
-
-      <div class="page-header">
-        <h1>Results</h1>
-      </div>
-      <div class="well">
-        <p></p>
-      </div>
+      
 
     </div><!-- /.container -->
 
@@ -95,10 +112,30 @@
             data: '',
             success: function(data){
               $('.well p').text('Predicted Output: ' + data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              $('.well p').text('[ERROR] ' + xhr.status + ' / ' + thrownError);
             }
           });
         });
-     
-     </script>
+
+        $("#btn-dir").click(function(){
+          var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+          $.ajax({
+            type: "POST",
+            url: $SCRIPT_ROOT + "/dir/",
+            data: '',
+            success: function(data){
+               $('.well p').text('user_inputs directory => ' + data.list);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              $('.well p').text('[ERROR] ' + xhr.status + ' / ' + thrownError);
+            }
+          });
+        });
+    </script>
+    <script src="{{ url_for('static',filename='index.js') }}" type="text/javascript">
+        
+    </script>
   </body>
 </html>

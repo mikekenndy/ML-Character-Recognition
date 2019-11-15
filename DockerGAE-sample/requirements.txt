@@ -5,5 +5,5 @@ numpy
 h5py
 pillow
 imageio
-scikit-image
+jsonpickle
 tensorflow==1.14.0

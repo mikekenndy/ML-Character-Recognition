@@ -2,6 +2,7 @@ FROM tensorflow/tensorflow:1.14.0-py3
 
 ADD static/ ./static
 ADD templates/ ./templates
+ADD user_inputs/ ./user_inputs
 ADD 784model.h5 ./
 ADD 784model.json ./
 ADD requirements.txt ./
